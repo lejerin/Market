@@ -1,0 +1,89 @@
+package com.example.shopping.ui.home
+
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import android.net.Uri
+import android.os.Build
+import android.os.Bundle
+import android.os.Environment
+import android.provider.MediaStore
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.FileProvider
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.shopping.R
+import com.example.shopping.data.model.UploadRequest
+import com.example.shopping.data.model.ProductResponse
+import com.example.shopping.data.network.ShopApi
+import com.example.shopping.data.repository.ApiRepository
+import com.example.shopping.databinding.FragmentFirstInputBinding
+import com.example.shopping.databinding.FragmentHomeBinding
+import com.gun0912.tedpermission.PermissionListener
+import com.gun0912.tedpermission.TedPermission
+import kotlinx.android.synthetic.main.fragment_home.*
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
+
+
+class HomeFragment : Fragment() {
+
+    private lateinit var binding: FragmentHomeBinding
+
+    private lateinit var factory: HomeViewModelFactory
+    private lateinit var viewModel: HomeViewModel
+
+
+    private val products: MutableList<ProductResponse> = mutableListOf()
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
+        binding.lifecycleOwner = this
+        return binding.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+
+        rc_home.layoutManager = LinearLayoutManager(requireContext())
+        rc_home.setHasFixedSize(true)
+        rc_home.adapter = HomeAdapter(products)
+
+        val api = ShopApi()
+        val repository = ApiRepository(api)
+        factory = HomeViewModelFactory(repository)
+        viewModel = ViewModelProvider(this, factory).get(HomeViewModel::class.java)
+
+        binding.homeVM = viewModel
+
+        viewModel.getProductList()
+        viewModel.products.observe(viewLifecycleOwner, Observer { list ->
+
+            products.clear()
+            products.addAll(list)
+            rc_home.adapter!!.notifyDataSetChanged()
+
+        })
+
+
+
+    }
+
+
+}

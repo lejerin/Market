@@ -1,0 +1,26 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="EditScreenTextInputLayoutStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorControlNormal">@color/grey_white</item>
+        <item name="colorControlActivated">@color/grey_white</item>
+        <item name="colorControlHighlight">@color/grey_white</item>
+        <item name="colorAccent">@color/grey_white</item>
+        <item name="android:textColorHint">@color/grey_white</item>
+    </style>
+
+    <style name="EditScreenTextInputLayoutStyleLight" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorControlNormal">@color/grey_dark</item>
+        <item name="colorControlActivated">@color/grey_dark</item>
+        <item name="colorControlHighlight">@color/grey_dark</item>
+        <item name="colorAccent">@color/grey_dark</item>
+        <item name="android:textColorHint">@color/grey_dark</item>
+    </style>
+
+</resources>
