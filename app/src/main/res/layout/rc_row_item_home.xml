@@ -12,14 +12,16 @@
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_marginHorizontal="3dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <ImageView
-        app:image="@{product.product_image}"
+        android:scaleType="centerCrop"
         android:id="@+id/img_product"
         android:layout_width="0dp"
         android:layout_height="100dp"
+        app:image="@{product.product_image}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -27,30 +29,37 @@
 
     <TextView
         android:id="@+id/title_product"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
+        android:lines="2"
+        android:maxLines="2"
+        android:textSize="13sp"
         android:text="@{product.product_name}"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/img_product" />
 
     <TextView
-        android:id="@+id/detail_product"
-        android:layout_width="wrap_content"
+        android:id="@+id/detail_price"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@{product.product_detail.toString()}"
+        android:layout_marginTop="2dp"
+        android:text="@{Integer.toString(product.product_price)}"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/title_product"
         app:layout_constraintTop_toBottomOf="@+id/title_product" />
 
     <TextView
         android:id="@+id/price_dd"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="2dp"
         android:text="@{product.product_merchandiser}"
-        app:layout_constraintStart_toStartOf="@+id/detail_product"
-        app:layout_constraintTop_toBottomOf="@+id/detail_product" />
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/detail_price"
+        app:layout_constraintTop_toBottomOf="@+id/detail_price" />
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -32,10 +32,7 @@ class HomeViewModel(
 
     }
 
-    fun startPost(v: View){
-        System.out.println("dddd")
-        v.context.startPostActivity()
-    }
+
 
 
     override fun onCleared() {

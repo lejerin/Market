@@ -4,15 +4,21 @@ import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.net.toFile
+import android.widget.EditText
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import com.example.shopping.R
 import com.example.shopping.databinding.FragmentFirstInputBinding
 import com.example.shopping.util.CameraUtil
+import java.io.File
+
 
 class FirstInputFragment : Fragment() {
 
@@ -21,6 +27,8 @@ class FirstInputFragment : Fragment() {
 
     val REQUEST_IMAGE_CAPTURE = 1
     val REQUEST_IMAGE_PICK = 10
+
+    val secondInputFragment: SecondInputFragment = SecondInputFragment()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,8 +47,25 @@ class FirstInputFragment : Fragment() {
 
 
         binding.btnNext.setOnClickListener {
-            viewModel.replaceFragment(this, SecondInputFragment(), true, it)
+            viewModel.replaceFragment(this, secondInputFragment, true, it)
         }
+
+
+        var previous = ""
+        binding.editTextTextPersonName3.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                previous= p0.toString();
+            }
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if(binding.editTextTextPersonName3.lineCount > 10){
+                    binding.editTextTextPersonName3.setText(previous)
+                    binding.editTextTextPersonName3.setSelection(previous.length-1)
+                }
+            }
+        })
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -52,7 +77,7 @@ class FirstInputFragment : Fragment() {
             val uri = CameraUtil.getInstance(context!!).makeBitmap(binding.addImg)
             CameraUtil.getInstance(context!!).setImageView(binding.addImg, uri)
 
-            viewModel.product_img = uri.toFile()
+            viewModel.product_img = File(uri.path)
         }
 
         //사진을 갖고왔을 때
@@ -60,9 +85,10 @@ class FirstInputFragment : Fragment() {
             val uri = data.data!!
             CameraUtil.getInstance(context!!).setImageView(binding.addImg, uri)
 
-            viewModel.product_img = uri.toFile()
+            viewModel.product_img = File(uri.path)
         }
 
     }
+
 
 }

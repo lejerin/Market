@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 data class ProductResponse(
 
     @SerializedName("product_image")
-    val product_image : String,
+    val product_image : String?,
 
     @SerializedName("product_name")
     val product_name : String,
@@ -26,7 +26,7 @@ data class ProductResponse(
     val product_minor_category : String,
 
     @SerializedName("product_mark")
-    val product_mark : Int,
+    val product_mark : Float,
 
     @SerializedName("product_merchandiser")
     val product_merchandiser : String

@@ -11,9 +11,9 @@ class ApiRepository (
     private val api: ShopApi
 ) : SafeApiRequest(){
 
-    suspend fun login(id: String, data: LoginRequest)
+    suspend fun login(data: LoginRequest)
             = apiRequest {
-        api.signInUser(id, data)
+        api.signInUser(data)
     }
 
     suspend fun signUp(data: SignUpRequest)

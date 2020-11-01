@@ -12,8 +12,8 @@ fun setImageViewResource(imageView: ImageView, resource: Int) {
 }
 
 @BindingAdapter("image")
-fun loadImageview(view : ImageView, url: String){
-    if(!url.isNullOrEmpty()){
+fun loadImageview(view : ImageView, url: String?){
+    if(url != null){
         Glide.with(view)
             .load(url)
             .placeholder(R.drawable.gray)

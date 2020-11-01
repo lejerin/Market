@@ -18,9 +18,8 @@ interface ShopApi {
     ): Response<SignUpResponse>
 
     //로그인
-    @POST("account/signin/{Account_id}/")
+    @POST("account/signin")
     suspend fun signInUser(
-        @Path("Account_id") Account_id: String,
         @Body param : LoginRequest
     ): Response<LoginResponse>
 

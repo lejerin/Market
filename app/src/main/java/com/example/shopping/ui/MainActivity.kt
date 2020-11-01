@@ -1,10 +1,13 @@
 package com.example.shopping.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.shopping.R
 import com.example.shopping.ui.home.HomeFragment
+import com.example.shopping.ui.post.PostActivity
+import com.example.shopping.util.startPostActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -28,10 +31,10 @@ class MainActivity : AppCompatActivity() {
                 true
             } else {
                 when (menuItem.itemId) {
-                    R.id.menu_search -> {
-                        setFragment(pageFragment)
-                        //    getSupportActionBar().setTitle("Search");
-                        true
+                    R.id.menu_register -> {
+                        val intent = Intent(this, PostActivity::class.java)
+                        startActivity(intent)
+                        false
                     }
                     else -> {
                         setFragment(homeFragment)

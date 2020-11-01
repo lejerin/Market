@@ -30,7 +30,7 @@ class LoginViewModel(
     fun startLogin(){
         if(!id.isNullOrEmpty() && !password.isNullOrEmpty()){
             job = Coroutines.ioThenMain(
-                { repository.login(id!!, LoginRequest(id!!,password!!)) },
+                { repository.login(LoginRequest(id!!,password!!)) },
                 {
                     _loginData.value = it
                 }
