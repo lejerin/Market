@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.shopping.data.model.SignUpRequest
 import com.example.shopping.data.model.SignUpResponse
+import com.example.shopping.data.network.Output
 import com.example.shopping.data.repository.ApiRepository
 import com.example.shopping.util.Coroutines
 import kotlinx.coroutines.Job
@@ -40,7 +41,11 @@ class SignUpViewModel(
             job = Coroutines.ioThenMain(
                 { repository.signUp(SignUpRequest(id!!, email!!, name!!, password!!, password_check!!, age!!.toInt(), sex!! )) },
                 {
-                    _signData.value = it
+                    when( it ){
+                        is Output.Success -> _signData.value = it.output
+                        // do something with success result
+                        is Output.Error -> System.out.println("오류")
+                    }
                 }
             )
         }

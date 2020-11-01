@@ -5,11 +5,13 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.AdapterView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.shopping.data.model.LoginResponse
 import com.example.shopping.data.model.LoginRequest
+import com.example.shopping.data.network.Output
 import com.example.shopping.data.repository.ApiRepository
 import com.example.shopping.util.Coroutines
 import kotlinx.coroutines.Job
@@ -32,7 +34,15 @@ class LoginViewModel(
             job = Coroutines.ioThenMain(
                 { repository.login(LoginRequest(id!!,password!!)) },
                 {
-                    _loginData.value = it
+
+                    when( it ){
+                        is Output.Success ->
+                            _loginData.value = it.output
+                        // do something with success result
+                        is Output.Error -> System.out.println("오류")
+                    }
+
+
                 }
             )
         }

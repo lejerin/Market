@@ -4,7 +4,9 @@ import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.shopping.data.model.LoginResponse
 import com.example.shopping.data.model.ProductResponse
+import com.example.shopping.data.network.Output
 import com.example.shopping.data.repository.ApiRepository
 import com.example.shopping.util.Coroutines
 import com.example.shopping.util.startPostActivity
@@ -26,7 +28,11 @@ class HomeViewModel(
         job = Coroutines.ioThenMain(
             { repository.getProduct() },
             {
-                _products.value = it
+                when( it ){
+                    is Output.Success -> _products.value = it.output
+                    // do something with success result
+                    is Output.Error -> System.out.println("오류")
+                }
             }
         )
 

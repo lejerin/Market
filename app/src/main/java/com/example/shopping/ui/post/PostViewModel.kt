@@ -12,6 +12,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.shopping.data.model.UploadRequest
+import com.example.shopping.data.network.Output
 import com.example.shopping.data.repository.UploadPostRepository
 import com.example.shopping.util.CameraUtil
 import com.example.shopping.util.Coroutines
@@ -117,8 +118,11 @@ class PostViewModel(
             { repository.uploadProduct(image, newProduct, productDetail, productPrice, productStock, productMajorCategory,
                 productMinorCategory, productMerchandiser) },
             {
-                System.out.println("결과값" + it?.status)
-                _isUploadSuccess.value = true
+                when( it ){
+                    is Output.Success -> _isUploadSuccess.value = true
+                    // do something with success result
+                    is Output.Error -> System.out.println("오류")
+                }
             }
         )
     }
