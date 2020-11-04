@@ -33,11 +33,12 @@ class PostViewModel(
 
     private lateinit var job: Job
 
+
     var product_img : File? = null
     val product_name : String? = null
     val product_detail : String? = null
-    val product_price : Int? = null
-    val product_stock : Int? = null
+    val product_price : String? = null
+    val product_stock : String? = null
     val product_major_category : String? = null
     val product_minor_category : String? = null
     val product_mark : String? = null
@@ -131,7 +132,7 @@ class PostViewModel(
 
         val product = UploadRequest("name", "detail" , 5000 ,
             3 , "category" , "category_minor",
-            3 , "eunjin" )
+            3.0f , "eunjin" )
 
 
         val product_name: RequestBody = RequestBody.create(MediaType.parse("text/plain"), "name")

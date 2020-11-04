@@ -23,7 +23,7 @@ data class UploadRequest(
     val product_minor_category : String,
 
     @SerializedName("product_mark")
-    val product_mark : Int,
+    val product_mark : Float,
 
     @SerializedName("product_merchandiser")
     val product_merchandiser : String

@@ -15,111 +15,168 @@
         tools:context=".ui.post.FirstInputFragment">
 
 
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="32dp"
-            android:background="@android:color/transparent"
-            android:onClick="@{(v) -> postVM.activityFinish(v)}"
-            android:src="@drawable/ic_baseline_arrow_back_ios_24"
-            android:tint="@color/black"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="24dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/btn_next"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageButton">
+            app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:scaleType="centerCrop"
-                android:id="@+id/add_img"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_gravity="center_horizontal"
-                android:onClick="@{(v) -> postVM.setPermission(v)}"
-                android:src="@drawable/ic_launcher_background" />
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:background="@android:color/transparent"
+                android:onClick="@{(v) -> postVM.activityFinish(v)}"
+                android:src="@drawable/ic_baseline_arrow_back_ios_24"
+                android:tint="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="상품 등록"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageButton"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView4"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="fill_vertical"
-                    android:layout_weight="1"
-                    android:text="이름"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
+                <LinearLayout
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                <EditText
-                    android:textSize="13sp"
-                    android:hint="내용을 입력하세요."
-                    android:id="@+id/product_name"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:background="@drawable/edit_text_selector"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:padding="10dp"
-                    android:text="@{postVM.product_name}" />
+                    <TextView
+                        style="@style/PostTextView"
+                        android:text="상품 사진을 등록해주세요." />
+
+                    <ImageView
+                        android:id="@+id/add_img"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="10dp"
+                        android:onClick="@{(v) -> postVM.setPermission(v)}"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_focus"
+                        android:layout_marginBottom="20dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:background="#96ECECEC"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_marginTop="20dp"
+                        style="@style/PostTextView"
+                        android:text="상품 대분류" />
+
+                    <EditText
+                        android:drawableEnd="@drawable/ic_baseline_keyboard_arrow_down_24"
+                        android:editable="false"
+                        style="@style/PostEditTextView"
+                        android:hint="상품 대분류" />
+
+                    <TextView
+                        style="@style/PostTextView"
+                        android:text="상품 소분류" />
+
+                    <EditText
+                        android:drawableEnd="@drawable/ic_baseline_keyboard_arrow_down_24"
+                        android:editable="false"
+                        style="@style/PostEditTextView"
+                        android:hint="상품 소분류"  />
+
+                    <TextView
+                        style="@style/PostTextView"
+                        android:text="상품 이름" />
+
+                    <EditText
+                        android:text="@{postVM.product_name}"
+                        android:hint="이름"
+                        style="@style/PostEditTextView"
+                        android:maxEms="15" />
+
+                    <TextView
+                        style="@style/PostTextView"
+                        android:text="상품 상세 설명" />
+
+                    <EditText
+                        android:id="@+id/editTextTextPersonName3"
+                        android:text="@{postVM.product_detail}"
+                        android:hint="상세 설명"
+                        android:singleLine="false"
+                        android:layout_height="wrap_content"
+                        android:gravity="top"
+                        android:inputType="textMultiLine"
+                        android:padding="10dp"
+                        android:scrollbars="none"
+                        style="@style/PostEditTextView"
+                        android:minLines="4"/>
+
+                    <TextView
+                        style="@style/PostTextView"
+                        android:text="상품 가격" />
+
+                    <EditText
+                        android:text="@{postVM.product_price.toString()}"
+                        android:hint="가격"
+                        android:inputType="numberDecimal"
+                        style="@style/PostEditTextView"
+                        android:maxEms="10" />
+
+                    <TextView
+                        style="@style/PostTextView"
+                        android:text="상품 재고" />
+
+                    <EditText
+                        android:text="@{postVM.product_stock.toString()}"
+                        android:hint="재고"
+                        android:inputType="numberDecimal"
+                        style="@style/PostEditTextView"
+                        android:maxEms="10"
+                        android:layout_marginBottom="100dp"/>
+
+
+                </LinearLayout>
+
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:id="@+id/textView6"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="fill_vertical"
-                    android:layout_weight="1"
-                    android:text="상세 설명" />
-
-                <EditText
-                    android:id="@+id/editTextTextPersonName3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:background="@drawable/edit_text_selector"
-                    android:ems="10"
-                    android:gravity="top"
-                    android:hint="내용을 입력하세요."
-                    android:inputType="textMultiLine"
-                    android:minLines="10"
-                    android:padding="10dp"
-                    android:scrollbars="none"
-                    android:text="@{postVM.product_detail}"
-                    android:textSize="13sp" />
-            </LinearLayout>
-        </LinearLayout>
+        </ScrollView>
 
         <ImageButton
             android:id="@+id/btn_next"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:scaleType="fitCenter"
-            android:layout_marginBottom="32dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginBottom="10dp"
             android:background="@android:color/transparent"
+            android:scaleType="fitCenter"
             android:src="@drawable/ic_arrow_down"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
