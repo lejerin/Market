@@ -83,7 +83,7 @@ class CameraUtil  {
     private fun savePhoto(bitmap: Bitmap) {
 
         //사진 폴더에 저장하기 위한 경로 선언
-        val folderPath = Environment.getExternalStorageDirectory().absolutePath + "/Pictures/Map/"
+        val folderPath = Environment.getExternalStorageDirectory().absolutePath + "/Pictures/Shopping/"
         val timestamp : String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val fileName = "${timestamp}.jpeg"
         val folder = File(folderPath)
@@ -99,6 +99,9 @@ class CameraUtil  {
 
     val REQUEST_TAKE_PHOTO = 1
 
+
+
+
     fun dispatchTakePictureIntent() {
         val activity = context.getActivity()!!
 
@@ -107,12 +110,13 @@ class CameraUtil  {
                 val photoFile : File? = try{
                     createImageFile()
                 }catch (e:Exception){
+
                     null
                 }
                 photoFile?.also {
                     val photoURI : Uri = FileProvider.getUriForFile(
                         context,
-                        "com.example.mapapp.fileprovider",
+                        "com.example.shopping.fileprovider",
                         it
                     )
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
