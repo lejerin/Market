@@ -2,9 +2,12 @@ package com.example.shopping.ui.post
 
 import android.content.Context
 import android.content.Intent
-import android.os.Bundle
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.provider.MediaStore
 import android.view.View
+import android.view.Window
+import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -43,9 +46,9 @@ class PostViewModel(
     val product_mark : String? = null
     val product_merchandiser : String? = null
 
-    val major_category_list = listOf("의류", "식료품", "전자제품")
-    val minor_category_list : List<List<String>> = listOf(listOf("상의","하의","아우터","신발"),
-        listOf("신선식품","가공식품"), listOf("컴퓨터","가전제품","모바일"))
+    val major_category_list = arrayOf("의류", "식료품", "전자제품")
+    val minor_category_list = arrayOf(arrayOf("상의","하의","아우터","신발"),
+        arrayOf("신선식품","가공식품"), arrayOf("컴퓨터","가전제품","모바일"))
 
      fun setPermission(v: View) {
         val permission = object : PermissionListener {
@@ -105,25 +108,62 @@ class PostViewModel(
         System.out.println("실행")
         if(isMajor){
 
-            val dlg = CategoryDialog(v.context)
-            dlg.setOnOKClickedListener { str ->
-                product_major_category = str
-                _majorCategory.value = str
-                _minor_Category.value = ""
-                product_minor_category = ""
+            val mBuilder = AlertDialog.Builder(v.context)
+
+
+            var checked = -1
+
+            if(product_major_category.isNotEmpty()){
+                for(j in major_category_list.indices){
+                    if(product_major_category == major_category_list[j]){
+                        checked = j
+                    }
+                }
             }
-            dlg.start(product_major_category, major_category_list)
+
+            mBuilder.setSingleChoiceItems(major_category_list, checked) { dialogInterface, i ->
+                product_major_category = major_category_list[i]
+                _majorCategory.value = major_category_list[i]
+                product_minor_category = ""
+                _minor_Category.value = ""
+                dialogInterface.dismiss()
+            }
+            val mDialog = mBuilder.create()
+            mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            val listView: ListView = mDialog.listView
+            listView.dividerHeight = 20 // set height
+
+            mDialog.show()
 
         }else{
                 if(product_major_category.isNotEmpty()){
                     for(i in major_category_list.indices){
                         if(product_major_category == major_category_list[i]){
-                            val dlg = CategoryDialog(v.context)
-                            dlg.setOnOKClickedListener { str ->
-                                product_minor_category = str
-                                _minor_Category.value = str
+                            val mBuilder = AlertDialog.Builder(v.context)
+
+                            var checked = -1
+
+                            if(product_minor_category.isNotEmpty()){
+                                for(j in minor_category_list[i].indices){
+                                    if(product_minor_category == minor_category_list[i][j]){
+                                        checked = j
+                                    }
+                                }
                             }
-                            dlg.start(product_minor_category, minor_category_list[i])
+
+                            mBuilder.setSingleChoiceItems(minor_category_list[i], checked) { dialogInterface, pos ->
+                                product_minor_category = minor_category_list[i][pos]
+                                _minor_Category.value = minor_category_list[i][pos]
+                                dialogInterface.dismiss()
+                            }
+
+
+                            val mDialog = mBuilder.create()
+                            mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                            val listView: ListView = mDialog.listView
+                            listView.dividerHeight = 20 // set height
+
+                            mDialog.show()
 
                         }
                     }
