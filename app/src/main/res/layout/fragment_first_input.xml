@@ -99,6 +99,8 @@
                         android:text="상품 대분류" />
 
                     <EditText
+                        android:id="@+id/major_category"
+                        android:onClick="@{(v) -> postVM.showCategoryDialog(v, true)}"
                         android:drawableEnd="@drawable/ic_baseline_keyboard_arrow_down_24"
                         android:editable="false"
                         style="@style/PostEditTextView"
@@ -109,6 +111,8 @@
                         android:text="상품 소분류" />
 
                     <EditText
+                        android:id="@+id/minor_category"
+                        android:onClick="@{(v) -> postVM.showCategoryDialog(v, false)}"
                         android:drawableEnd="@drawable/ic_baseline_keyboard_arrow_down_24"
                         android:editable="false"
                         style="@style/PostEditTextView"

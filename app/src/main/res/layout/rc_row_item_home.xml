@@ -8,7 +8,7 @@
     <data>
         <variable
             name="product"
-            type="com.example.shopping.data.model.ProductResponse" />
+            type="com.example.shopping.data.model.Product" />
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,18 +1,13 @@
 package com.example.shopping.ui.home
 
-import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.shopping.data.model.LoginResponse
-import com.example.shopping.data.model.ProductResponse
+import com.example.shopping.data.model.Product
 import com.example.shopping.data.network.Output
 import com.example.shopping.data.repository.ApiRepository
 import com.example.shopping.util.Coroutines
-import com.example.shopping.util.startPostActivity
 import kotlinx.coroutines.Job
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 
 class HomeViewModel(
     private val repository: ApiRepository
@@ -20,8 +15,8 @@ class HomeViewModel(
 
     private lateinit var job: Job
 
-    private val _products = MutableLiveData<List<ProductResponse>>()
-    val products : LiveData<List<ProductResponse>>
+    private val _products = MutableLiveData<List<Product>>()
+    val products : LiveData<List<Product>>
         get() = _products
 
     fun getProductList(){
@@ -29,7 +24,7 @@ class HomeViewModel(
             { repository.getProduct() },
             {
                 when( it ){
-                    is Output.Success -> _products.value = it.output
+                    is Output.Success -> _products.value = it.output.results
                     // do something with success result
                     is Output.Error -> System.out.println("오류")
                 }

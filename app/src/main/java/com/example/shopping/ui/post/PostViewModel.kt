@@ -33,16 +33,19 @@ class PostViewModel(
 
     private lateinit var job: Job
 
-
     var product_img : File? = null
     val product_name : String? = null
     val product_detail : String? = null
     val product_price : String? = null
     val product_stock : String? = null
-    val product_major_category : String? = null
-    val product_minor_category : String? = null
+    var product_major_category = ""
+    var product_minor_category = ""
     val product_mark : String? = null
     val product_merchandiser : String? = null
+
+    val major_category_list = listOf("의류", "식료품", "전자제품")
+    val minor_category_list : List<List<String>> = listOf(listOf("상의","하의","아우터","신발"),
+        listOf("신선식품","가공식품"), listOf("컴퓨터","가전제품","모바일"))
 
      fun setPermission(v: View) {
         val permission = object : PermissionListener {
@@ -90,6 +93,43 @@ class PostViewModel(
         activity?.startActivityForResult(galleryIntent, REQUEST_IMAGE_PICK)
     }
 
+    private val _majorCategory = MutableLiveData<String>()
+    val majorCategory : LiveData<String>
+        get() = _majorCategory
+
+    private val _minor_Category = MutableLiveData<String>()
+    val minorCategory : LiveData<String>
+        get() = _minor_Category
+
+    fun showCategoryDialog(v: View, isMajor: Boolean){
+        System.out.println("실행")
+        if(isMajor){
+
+            val dlg = CategoryDialog(v.context)
+            dlg.setOnOKClickedListener { str ->
+                product_major_category = str
+                _majorCategory.value = str
+                _minor_Category.value = ""
+                product_minor_category = ""
+            }
+            dlg.start(product_major_category, major_category_list)
+
+        }else{
+                if(product_major_category.isNotEmpty()){
+                    for(i in major_category_list.indices){
+                        if(product_major_category == major_category_list[i]){
+                            val dlg = CategoryDialog(v.context)
+                            dlg.setOnOKClickedListener { str ->
+                                product_minor_category = str
+                                _minor_Category.value = str
+                            }
+                            dlg.start(product_minor_category, minor_category_list[i])
+
+                        }
+                    }
+                }
+        }
+    }
 
     fun activityFinish(v: View) {
         val activity = v.context.getActivity()

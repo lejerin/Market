@@ -8,9 +8,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.shopping.R
+import com.example.shopping.data.model.Product
 import com.example.shopping.data.model.ProductResponse
 import com.example.shopping.data.network.ShopApi
 import com.example.shopping.data.repository.ApiRepository
@@ -26,7 +26,7 @@ class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
 
 
-    private val products: MutableList<ProductResponse> = mutableListOf()
+    private val products: MutableList<Product> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

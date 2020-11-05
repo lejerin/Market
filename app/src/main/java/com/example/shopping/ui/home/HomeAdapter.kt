@@ -8,12 +8,12 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopping.R
-import com.example.shopping.data.model.ProductResponse
+import com.example.shopping.data.model.Product
 import com.example.shopping.databinding.RcRowItemHomeBinding
 import com.example.shopping.util.MyApplication
 
 class HomeAdapter (
-    private val productList : List<ProductResponse>
+    private val productList : List<Product>
 ) : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>(){
 
     override fun getItemCount() = productList.size

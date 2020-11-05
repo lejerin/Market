@@ -26,7 +26,7 @@ interface ShopApi {
     //상품 목록 불러오기
     @GET("product/")
     suspend fun getProduct(
-    ): Response<List<ProductResponse>>
+    ): Response<ProductResponse>
 
     //상품 목록 보내기
     @Multipart

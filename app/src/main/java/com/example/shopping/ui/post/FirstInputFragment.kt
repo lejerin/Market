@@ -14,6 +14,7 @@ import android.widget.EditText
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.example.shopping.R
 import com.example.shopping.databinding.FragmentFirstInputBinding
 import com.example.shopping.util.CameraUtil
@@ -49,6 +50,14 @@ class FirstInputFragment : Fragment() {
         binding.btnNext.setOnClickListener {
             viewModel.replaceFragment(this, secondInputFragment, true, it)
         }
+
+        viewModel.majorCategory.observe(this, Observer {
+            binding.majorCategory.setText(it)
+        })
+
+        viewModel.minorCategory.observe(this, Observer {
+            binding.minorCategory.setText(it)
+        })
 
 
         var previous = ""
