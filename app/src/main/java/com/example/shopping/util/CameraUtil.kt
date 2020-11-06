@@ -38,6 +38,7 @@ class CameraUtil  {
     }
 
     lateinit var currentPhotoPath: String
+    lateinit var currentFile: File
 
     //이미지 파일 생성
     private fun createImageFile(): File {
@@ -45,13 +46,22 @@ class CameraUtil  {
         val storageDir : File? = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile("JPEG_${timestamp}_",".jpeg",storageDir).apply {
             currentPhotoPath = absolutePath
+            currentFile = this
         }
     }
 
+    // 실제 경로 찾기
+    private fun getPath(uri: Uri): String {
+        val projection = arrayOf(MediaStore.Images.Media.DATA)
+        val cursor = context.getActivity()!!.managedQuery(uri, projection, null, null, null)
+        val column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        cursor.moveToFirst()
+        return cursor.getString(column_index)
+    }
 
     fun makeBitmap(btnAddPhoto: ImageView): Uri {
         val bitmap : Bitmap
-        val file = File(currentPhotoPath)
+        val file = currentFile
         if(Build.VERSION.SDK_INT < 28){//안드로이드 9.0 보다 버전이 낮을 경우
             bitmap = MediaStore.Images.Media.getBitmap(context.contentResolver,Uri.fromFile(file))
             //  img_photo.setImageBitmap(bitmap)

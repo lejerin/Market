@@ -3,7 +3,9 @@ package com.example.shopping.ui.post
 import android.app.Activity
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.KeyEvent
@@ -80,7 +82,6 @@ class FirstInputFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             //사진찍은거 파일로 저장하고 가져오기
             val uri = CameraUtil.getInstance(context!!).makeBitmap(binding.addImg)
@@ -94,10 +95,21 @@ class FirstInputFragment : Fragment() {
             val uri = data.data!!
             CameraUtil.getInstance(context!!).setImageView(binding.addImg, uri)
 
-            viewModel.product_img = File(uri.path)
+            viewModel.product_img = File(getPath(uri))
         }
 
     }
+
+    // 실제 경로 찾기
+    private fun getPath(uri: Uri): String {
+        val projection = arrayOf(MediaStore.Images.Media.DATA)
+        val cursor = activity!!.managedQuery(uri, projection, null, null, null)
+        val column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+        cursor.moveToFirst()
+        return cursor.getString(column_index)
+    }
+
+
 
 
 }
