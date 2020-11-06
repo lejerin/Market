@@ -26,7 +26,7 @@ abstract class SafeApiRequest {
         return if (response.isSuccessful)
             Output.Success(response.body()!!)
         else
-            Output.Error(IOException("OOps .. Something went wrong due to  "))
+            Output.Error(IOException(response.message()))
     }
 }
 

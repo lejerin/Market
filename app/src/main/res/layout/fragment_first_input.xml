@@ -125,7 +125,7 @@
                         android:text="상품 이름" />
 
                     <EditText
-                        android:text="@{postVM.product_name}"
+                        android:text="@={postVM.product_name}"
                         android:hint="이름"
                         style="@style/PostEditTextView"
                         android:maxEms="15" />
@@ -136,7 +136,7 @@
 
                     <EditText
                         android:id="@+id/editTextTextPersonName3"
-                        android:text="@{postVM.product_detail}"
+                        android:text="@={postVM.product_detail}"
                         android:hint="상세 설명"
                         android:singleLine="false"
                         android:layout_height="wrap_content"
@@ -152,7 +152,7 @@
                         android:text="상품 가격" />
 
                     <EditText
-                        android:text="@{postVM.product_price.toString()}"
+                        android:text="@={postVM.product_price}"
                         android:hint="가격"
                         android:inputType="numberDecimal"
                         style="@style/PostEditTextView"
@@ -163,7 +163,7 @@
                         android:text="상품 재고" />
 
                     <EditText
-                        android:text="@{postVM.product_stock.toString()}"
+                        android:text="@={postVM.product_stock}"
                         android:hint="재고"
                         android:inputType="numberDecimal"
                         style="@style/PostEditTextView"
