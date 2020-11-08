@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.example.shopping.R
 import com.example.shopping.data.model.UploadRequest
 import com.example.shopping.databinding.FragmentSecondInputBinding
@@ -34,7 +35,11 @@ class SecondInputFragment : Fragment() {
         viewModel = (activity as PostActivity).getViewModel()
         binding.postVM = viewModel
 
-
+        viewModel.isUploadSuccess.observe(this, Observer {
+            if(it){
+                (activity as PostActivity).finish()
+            }
+        })
 
     }
 

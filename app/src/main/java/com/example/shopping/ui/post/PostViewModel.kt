@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.shopping.R
 import com.example.shopping.data.network.Output
 import com.example.shopping.data.repository.UploadPostRepository
 import com.example.shopping.util.CameraUtil
@@ -20,6 +21,7 @@ import com.example.shopping.util.getActivity
 import com.example.shopping.util.replaceFramgnet
 import com.gun0912.tedpermission.PermissionListener
 import com.gun0912.tedpermission.TedPermission
+import kotlinx.android.synthetic.main.activity_post.view.*
 import kotlinx.coroutines.Job
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -176,7 +178,7 @@ class PostViewModel(
 
 
     fun replaceFragment(from: Fragment, to: Fragment, addToBackStack: Boolean, v: View){
-        v.context.replaceFramgnet(from, to, addToBackStack)
+        v.context.replaceFramgnet(from, to, addToBackStack, R.id.main_post_frame, false)
     }
 
     private val _isUploadSuccess = MutableLiveData<Boolean>()

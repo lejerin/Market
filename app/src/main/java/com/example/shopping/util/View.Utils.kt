@@ -25,7 +25,7 @@ fun Context.startPostActivity() =
         startActivity(it)
     }
 
-fun Context.replaceFramgnet(from: Fragment, fragment: Fragment, addToBackStack: Boolean) {
+fun Context.replaceFramgnet(from: Fragment, fragment: Fragment, addToBackStack: Boolean, frame: Int, isAnimRight: Boolean) {
     try {
         //getFragmentManager().popBackStackImmediate();
         val transaction: FragmentTransaction = from.fragmentManager!!.beginTransaction()
@@ -33,14 +33,25 @@ fun Context.replaceFramgnet(from: Fragment, fragment: Fragment, addToBackStack: 
             transaction.addToBackStack(null)
         }
         //transaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_up);
-        transaction.setCustomAnimations(
-            R.anim.slide_in_up,
-            R.anim.slide_out_up,
-            R.anim.slide_in_down,
-            R.anim.slide_out_down
-        )
-        transaction.replace(R.id.main_post_frame, fragment)
+        if(isAnimRight){
+            transaction.setCustomAnimations(
+                R.anim.enter_from_right,
+                R.anim.exit_to_right,
+                R.anim.enter_from_left,
+                R.anim.exit_to_left
+            )
+        }else{
+            transaction.setCustomAnimations(
+                R.anim.slide_in_up,
+                R.anim.slide_out_up,
+                R.anim.slide_in_down,
+                R.anim.slide_out_down
+            )
+        }
+
+        transaction.replace(frame, fragment)
         transaction.commit()
     } catch (e: Exception) {
     }
 }
+

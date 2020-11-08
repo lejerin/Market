@@ -15,6 +15,8 @@ import com.example.shopping.data.model.ProductResponse
 import com.example.shopping.data.network.ShopApi
 import com.example.shopping.data.repository.ApiRepository
 import com.example.shopping.databinding.FragmentHomeBinding
+import com.example.shopping.ui.post.SecondInputFragment
+import com.example.shopping.ui.search.SearchFragment
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
@@ -25,6 +27,7 @@ class HomeFragment : Fragment() {
     private lateinit var factory: HomeViewModelFactory
     private lateinit var viewModel: HomeViewModel
 
+    val searchFragment: SearchFragment = SearchFragment()
 
     private val products: MutableList<Product> = mutableListOf()
 
@@ -62,7 +65,9 @@ class HomeFragment : Fragment() {
 
         })
 
-
+        binding.goSearchBtn.setOnClickListener {
+            viewModel.replaceFragment(this, searchFragment, true, it)
+        }
 
     }
 
