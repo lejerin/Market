@@ -28,6 +28,13 @@ interface ShopApi {
     suspend fun getProduct(
     ): Response<ProductResponse>
 
+    //검색 목록 불러오기
+    @GET("product/")
+    suspend fun getSearchProduct(
+        @Query("search") part: String
+    ): Response<ProductResponse>
+
+
     //상품 목록 보내기
     @Multipart
     @POST("product/create")
