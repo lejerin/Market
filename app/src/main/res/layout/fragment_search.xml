@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="searchVM"
+            type="com.example.shopping.ui.search.SearchViewModel" />
+    </data>
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.search.SearchFragment"
@@ -25,7 +33,10 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
+            android:text="@={searchVM.search_name}"
+            tools:setOnEditorActionListener="@{searchVM.clicksListener}"
             android:hint="검색어 입력"
+            android:imeOptions="actionSearch"
             android:background="@drawable/edit_text_border_notfocus"
             android:padding="10dp"
             android:id="@+id/search_text"
@@ -43,6 +54,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
+            android:onClick="@{(v) -> searchVM.startSearch(v)}"
             android:id="@+id/search_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -77,3 +89,4 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>
+</layout>
