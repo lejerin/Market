@@ -21,9 +21,9 @@ class ApiRepository (
         api.signUpUser(data)
     }
 
-    suspend fun getProduct()
+    suspend fun getProduct(page: Int)
             = apiRequest {
-        api.getProduct()
+        api.getProduct(page)
     }
 
 

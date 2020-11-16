@@ -5,10 +5,11 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
-    <uses-permission android:name="android.permission.CAMERA" /><!--카메라 권한-->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /><!--파일 쓰기 권한-->
-    <uses-feature android:name="android.hardware.camera" android:required="true"/><!--카메라 기능 사용-->
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- 카메라 권한 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 파일 쓰기 권한 -->
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:name=".util.MyApplication"
@@ -19,7 +20,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.signup.SignUpActivity"></activity>
+        <activity android:name=".ui.detail.DetailActivity"></activity>
+        <activity android:name=".ui.signup.SignUpActivity" />
         <activity android:name=".ui.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,11 +29,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.MainActivity">
-
-        </activity>
-
-        <activity android:name=".ui.post.PostActivity"></activity>
+        <activity android:name=".ui.MainActivity"></activity>
+        <activity android:name=".ui.post.PostActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -40,10 +39,8 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/camera_path"></meta-data>
+                android:resource="@xml/camera_path" />
         </provider>
-
-
     </application>
 
 </manifest>

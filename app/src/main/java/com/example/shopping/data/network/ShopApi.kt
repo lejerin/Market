@@ -26,12 +26,22 @@ interface ShopApi {
     //상품 목록 불러오기
     @GET("product/")
     suspend fun getProduct(
+        @Query("page") page: Int
     ): Response<ProductResponse>
 
     //검색 목록 불러오기
     @GET("product/")
     suspend fun getSearchProduct(
         @Query("search") part: String
+    ): Response<ProductResponse>
+
+    //구입
+    @POST("product/")
+    suspend fun purchaceProduct(
+        @Query("UID") UID: String,
+        @Query("PID") PID: Int,
+        @Query("count") count: Int,
+        @Query("mark") mark: Float //(0.0 ~ 5.0)
     ): Response<ProductResponse>
 
 
@@ -54,7 +64,7 @@ interface ShopApi {
         operator fun invoke() : ShopApi {
             return Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("http://ec2-3-35-43-20.ap-northeast-2.compute.amazonaws.com/")
+                .baseUrl("http://ec2-54-180-20-247.ap-northeast-2.compute.amazonaws.com/")
                 .build()
                 .create(ShopApi::class.java)
         }
