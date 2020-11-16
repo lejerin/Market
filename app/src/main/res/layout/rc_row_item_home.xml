@@ -12,6 +12,7 @@
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/home_view"
     android:layout_marginHorizontal="3dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">

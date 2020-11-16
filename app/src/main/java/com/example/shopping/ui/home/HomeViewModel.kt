@@ -24,18 +24,29 @@ class HomeViewModel(
     val products : LiveData<List<Product>>
         get() = _products
 
-    fun getProductList(){
-        job = Coroutines.ioThenMain(
-            { repository.getProduct() },
-            {
-                when( it ){
-                    is Output.Success -> _products.value = it.output.results
-                    // do something with success result
-                    is Output.Error -> System.out.println("오류")
-                }
-            }
-        )
 
+    var page: Int? = 1
+
+    fun getProductList(){
+        if(page != null){
+            job = Coroutines.ioThenMain(
+                { repository.getProduct(page!!) },
+                {
+                    when( it ){
+                        is Output.Success -> {
+                            page = if(it.output.next != null){
+                                page!! + 1
+                            }else{
+                                null
+                            }
+                            _products.value = it.output.results
+                        }
+                        // do something with success result
+                        is Output.Error -> System.out.println("오류")
+                    }
+                }
+            )
+        }
     }
 
 
