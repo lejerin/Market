@@ -1,5 +1,6 @@
 package com.example.shopping.data.repository
 
+import com.example.shopping.data.model.PurchaseRequest
 import com.example.shopping.data.network.SafeApiRequest
 import com.example.shopping.data.network.ShopApi
 import okhttp3.MultipartBody
@@ -10,14 +11,18 @@ class PurchaseRepository (
 ) : SafeApiRequest(){
 
 
+    suspend fun getProductWithId(
+        id: Int
+    )
+        = apiRequest {
+        api.getProductWithId(id)
+    }
+
     suspend fun purchaseProduct(
-        UID: String,
-        PID: Int,
-        count: Int,
-        mark: Float
+      purchaseRequest: PurchaseRequest
     )
             = apiRequest {
-        api.purchaceProduct(UID, PID, count, mark)
+        api.purchaceProduct(purchaseRequest)
     }
 
 }

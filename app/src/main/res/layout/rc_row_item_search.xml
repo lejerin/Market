@@ -12,6 +12,7 @@
     </data>
 
 <LinearLayout
+    android:id="@+id/search_view"
     android:gravity="center"
     android:paddingVertical="20dp"
     android:orientation="horizontal"

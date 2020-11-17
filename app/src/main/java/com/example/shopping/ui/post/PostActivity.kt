@@ -91,7 +91,7 @@ class PostActivity : AppCompatActivity() {
     override fun finish() {
         super.finish()
 
-        overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left)
+      //  overridePendingTransition(R.anim.left_to_right, R.anim.right_to_left)
     }
 
 

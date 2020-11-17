@@ -29,6 +29,12 @@ interface ShopApi {
         @Query("page") page: Int
     ): Response<ProductResponse>
 
+    //상품 목록 id로 불러오기
+    @GET("product/{path}")
+    suspend fun getProductWithId(
+        @Path("path") path: Int
+    ): Response<Product>
+
     //검색 목록 불러오기
     @GET("product/")
     suspend fun getSearchProduct(
@@ -36,13 +42,10 @@ interface ShopApi {
     ): Response<ProductResponse>
 
     //구입
-    @POST("product/")
+    @POST("order/purchase")
     suspend fun purchaceProduct(
-        @Query("UID") UID: String,
-        @Query("PID") PID: Int,
-        @Query("count") count: Int,
-        @Query("mark") mark: Float //(0.0 ~ 5.0)
-    ): Response<ProductResponse>
+        @Body param : PurchaseRequest
+    ): Response<PurchaseResponse>
 
 
     //상품 목록 보내기

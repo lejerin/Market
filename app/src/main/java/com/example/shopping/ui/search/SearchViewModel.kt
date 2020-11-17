@@ -16,6 +16,7 @@ import com.example.shopping.data.network.Output
 import com.example.shopping.data.repository.ApiRepository
 import com.example.shopping.data.repository.SearchRepository
 import com.example.shopping.util.Coroutines
+import com.example.shopping.util.getActivity
 import com.example.shopping.util.replaceFramgnet
 import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.coroutines.Job
@@ -77,6 +78,11 @@ class SearchViewModel(
     fun View.hideKeyboard() {
         val inputManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputManager.hideSoftInputFromWindow(windowToken, 0)
+    }
+
+    fun fragmentFinish(v: View) {
+        val activity = v.context.getActivity()
+        activity?.onBackPressed()
     }
 
     override fun onCleared() {

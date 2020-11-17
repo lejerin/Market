@@ -1,5 +1,7 @@
 package com.example.shopping.data.model
 
+import java.io.Serializable
+
 data class Product(
     val id: Int,
     val product_count: Int,
@@ -12,4 +14,4 @@ data class Product(
     val product_name: String,
     val product_price: Int,
     val product_stock: Int
-)
+): Serializable

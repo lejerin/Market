@@ -213,7 +213,7 @@ class PostViewModel(
 
         val productName: RequestBody = RequestBody.create(MediaType.parse("text/plain"), product_name)
         val productDetail: RequestBody = RequestBody.create(
-            MediaType.parse("text/plain"), "product_detail")
+            MediaType.parse("text/plain"), product_detail)
         val productPrice: RequestBody = RequestBody.create(
             MediaType.parse("text/plain"), product_price)
         val productStock: RequestBody = RequestBody.create(

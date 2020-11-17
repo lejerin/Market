@@ -13,6 +13,7 @@ import com.example.shopping.data.repository.ApiRepository
 import com.example.shopping.databinding.ActivityLoginBinding
 import com.example.shopping.ui.MainActivity
 import com.example.shopping.ui.signup.SignUpActivity
+import com.example.shopping.util.PreferenceUtil
 
 
 class LoginActivity : AppCompatActivity() {
@@ -36,6 +37,7 @@ class LoginActivity : AppCompatActivity() {
         viewModel.loginResponseData.observe(this, Observer { data ->
             if(data.is_login){
                 Toast.makeText(this, "성공", Toast.LENGTH_LONG).show()
+                PreferenceUtil(this).setUID(data.ID)
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()

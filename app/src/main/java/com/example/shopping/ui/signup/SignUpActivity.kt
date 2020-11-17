@@ -12,6 +12,7 @@ import com.example.shopping.data.repository.ApiRepository
 import com.example.shopping.databinding.ActivitySignUpBinding
 import androidx.lifecycle.Observer
 import com.example.shopping.ui.MainActivity
+import com.example.shopping.util.PreferenceUtil
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -40,6 +41,7 @@ class SignUpActivity : AppCompatActivity() {
         viewModel.signResponseData.observe(this, Observer { data ->
             if(data.is_join){
                 Toast.makeText(this, "성공", Toast.LENGTH_LONG).show()
+                PreferenceUtil(this).setUID(data.ID)
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()

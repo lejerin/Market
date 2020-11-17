@@ -30,7 +30,6 @@ abstract class SafeApiRequest {
     }
 }
 
-class ApiException(message: String) : IOException(message)
 
 sealed class Output<out T : Any>{
     data class Success<out T : Any>(val output : T) : Output<T>()

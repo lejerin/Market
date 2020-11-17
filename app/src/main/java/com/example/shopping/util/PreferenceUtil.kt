@@ -21,5 +21,13 @@ class PreferenceUtil(context: Context) {
     fun setHomeItemWidth(value: Int){
         prefs.edit().putInt("HomeItemWidth", value).apply()
     }
+
+    fun setUID(uid: String){
+        prefs.edit().putString("UID", uid).apply()
+    }
+    fun getUID(): String? {
+        return prefs.getString("UID", "")
+    }
+
 }
 

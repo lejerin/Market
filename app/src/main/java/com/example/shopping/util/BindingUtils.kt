@@ -1,10 +1,11 @@
 package com.example.shopping.util
 
 import android.widget.ImageView
+import android.widget.RatingBar
 import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.shopping.R
+
 
 @BindingAdapter("android:src")
 fun setImageViewResource(imageView: ImageView, resource: Int) {
@@ -22,5 +23,6 @@ fun loadImageview(view : ImageView, url: String?){
             .into(view)
     }
 }
+
 
 

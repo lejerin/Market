@@ -13,9 +13,11 @@ import com.example.shopping.data.model.Product
 import com.example.shopping.databinding.RcRowItemHomeBinding
 import com.example.shopping.databinding.RcRowItemSearchBinding
 import com.example.shopping.util.MyApplication
+import com.example.shopping.util.RecyclerViewClickListener
 
 class SearchAdapter (
-    private val productList : List<Product>
+    private val productList : List<Product>,
+    private val listener: RecyclerViewClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     companion object
@@ -67,6 +69,9 @@ class SearchAdapter (
         {
             holder.searchBinding.product = productList[position]
 
+            holder.searchBinding.searchView.setOnClickListener {
+                listener.onRecyclerViewItemClick(holder.searchBinding.searchView , position)
+            }
         }
 
     }
