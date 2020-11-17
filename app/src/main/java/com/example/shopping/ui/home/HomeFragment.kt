@@ -1,28 +1,25 @@
 package com.example.shopping.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.GridLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopping.R
 import com.example.shopping.data.model.Product
-import com.example.shopping.data.model.ProductResponse
 import com.example.shopping.data.network.ShopApi
 import com.example.shopping.data.repository.ApiRepository
 import com.example.shopping.databinding.FragmentHomeBinding
-import com.example.shopping.ui.post.SecondInputFragment
+import com.example.shopping.ui.detail.DetailActivity
 import com.example.shopping.ui.search.SearchFragment
 import com.example.shopping.util.RecyclerViewClickListener
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_search.*
 
 
 class HomeFragment : Fragment() ,
@@ -36,7 +33,7 @@ class HomeFragment : Fragment() ,
     val searchFragment: SearchFragment = SearchFragment()
 
     private val products: MutableList<Product> = mutableListOf()
-    private var startNum = 0
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,15 +64,9 @@ class HomeFragment : Fragment() ,
         viewModel.getProductList()
         viewModel.products.observe(viewLifecycleOwner, Observer { list ->
 
-            if(viewModel.page != null){
-                (rc_home.adapter!! as HomeAdapter).setIsNext("true")
-            }else{
-                (rc_home.adapter!! as HomeAdapter).setIsNext(null)
-            }
+            val initialSize: Int = products.size
             products.addAll(list)
-            rc_home.adapter!!.notifyDataSetChanged()
-            startNum = products.size
-
+            rc_home.adapter!!.notifyItemRangeInserted(initialSize, products.size-1)
         })
 
         binding.goSearchBtn.setOnClickListener {
@@ -105,7 +96,9 @@ class HomeFragment : Fragment() ,
     }
 
     override fun onRecyclerViewItemClick(view: View, pos: Int) {
-
+        val intent = Intent(context, DetailActivity::class.java)
+        intent.putExtra("id", products[pos].id)
+        startActivity(intent)
     }
 
 }
